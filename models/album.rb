@@ -24,4 +24,23 @@ def save
  @id = result[0]['id'].to_i
 end
 
+def Album.all
+  sql = 'SELECT * FROM albums'
+  results = SqlRunner.run(sql)
+  return results.map {|result| Album.new(result)}
+end
+
+def artist
+  sql = 'SELECT * FROM artists WHERE id = $1'
+  values = [@artist_id]
+  results = SqlRunner.run(sql, values)
+  array = results.map {|result| Artist.new(result)}
+  return array[0]
+end
+
+def Album.delete_all
+sql = 'DELETE FROM albums'
+result = SqlRunner.run(sql)
+end
+
 end

@@ -2,6 +2,9 @@ require('pry-byebug')
 require_relative('./artist')
 require_relative('./album')
 
+Album.delete_all()
+Artist.delete_all()
+
 artist1 = Artist.new({'name' => 'Led Zeppelin'})
 artist1.save
 

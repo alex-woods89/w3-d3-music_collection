@@ -13,4 +13,15 @@ def initialize(options)
   @genre = options['genre']
 end
 
+def save
+  sql = "INSERT INTO albums
+        (artist_id, name, genre)
+        VALUES
+        ($1, $2, $3)
+        RETURNING *"
+ values = [@artist_id, @name, @genre]
+ result = SqlRunner.run(sql, values)
+ @id = result[0]['id'].to_i
+end
+
 end

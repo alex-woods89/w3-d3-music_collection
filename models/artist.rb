@@ -11,5 +11,15 @@ def initialize(options)
   @name = options['name']
 end
 
+def save
+  sql = "INSERT INTO artists
+        (name)
+        VALUES
+        ($1)
+        RETURNING *"
+ values = [@name]
+ result = SqlRunner.run(sql, values)
+ @id = result[0]['id'].to_i
+end
 
 end

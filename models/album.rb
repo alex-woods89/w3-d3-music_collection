@@ -43,4 +43,16 @@ sql = 'DELETE FROM albums'
 result = SqlRunner.run(sql)
 end
 
+def update
+  sql = 'UPDATE albums SET
+        (artist_id, name, genre)
+        =
+        ($1, $2, $3)
+        WHERE id = $4
+        RETURNING *'
+   values = [@artist_id, @name, @genre, @id]
+   result = SqlRunner.run(sql, values)
+   updated_album = Album.new(result[0])
+   return
+end
 end
